@@ -1,0 +1,56 @@
+#!/bin/bash
+###############################################################################
+# Script to mass manage ZCS accounts
+#
+# Version: 1.0
+# Date: 07/02/2012
+# Author: Diego Lima <diego.lima@4linux.com.br>
+###############################################################################
+ZMBUSR="zimbra"
+MGTPREFIX="./"
+MGTUSERLIST="`ls $MGTPREFIX/*.list`"
+
+# doEnableAccount ACCOUNT
+#
+# Unlocks the given ACCOUNT to enable the user to log in
+doEnableAccount(){
+	local ACCOUNT="$1"
+	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus active"
+}
+
+# doDisableAccount ACCOUNT
+#
+# Locks the given ACCOUNT to prevent the user from logging in
+doDisableAccount(){
+	local ACCOUNT="$1"
+	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus locked"
+}
+
+# doReadAccounts
+#
+# Generates an account list based on *.list files present on $MGTPREFIX
+# and takes an action based on how the script was invoked from the command
+# line. 
+doReadAccounts(){
+	local ACTION="$1"
+	local ACCOUNT=""
+	local LIST=""
+
+	for LIST in $MGTUSERLIST; do
+		for ACCOUNT in `cat $LIST`; do
+			case $ACTION in
+				"enable")
+					doEnableAccount "$ACCOUNT"
+					;;
+				"disable")
+					doDisableAccount "$ACCOUNT"
+					;;
+				*) 
+					echo "Unsupported option"
+					exit 1
+					;;
+			esac
+		done
+	done
+}
+doReadAccounts $1
