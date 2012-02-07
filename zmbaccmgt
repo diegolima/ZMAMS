@@ -8,6 +8,7 @@
 ###############################################################################
 ZMBUSR="zimbra"
 MGTPREFIX="./"
+MGTLOG="$MGTPREFIX/activity.log"
 MGTUSERLIST="`ls $MGTPREFIX/*.list`"
 
 # doEnableAccount ACCOUNT
@@ -15,7 +16,9 @@ MGTUSERLIST="`ls $MGTPREFIX/*.list`"
 # Unlocks the given ACCOUNT to enable the user to log in
 doEnableAccount(){
 	local ACCOUNT="$1"
-	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus active"
+
+	echo "`date +%Y%m%d%H%M` - Enabling $ACCOUNT" | tee -a $MGTLOG
+	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus active" || echo "`date +%Y%m%d%H%M` - Error enabling $ACCOUNT" | tee -a $MGTLOG
 }
 
 # doDisableAccount ACCOUNT
@@ -23,7 +26,9 @@ doEnableAccount(){
 # Locks the given ACCOUNT to prevent the user from logging in
 doDisableAccount(){
 	local ACCOUNT="$1"
-	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus locked"
+
+	echo "`date +%Y%m%d%H%M` - Disabling $ACCOUNT" | tee -a $MGTLOG
+	su - $ZMBUSR -c "zmprov ma $ACCOUNT zimbraAccountStatus locked" || echo "`date +%Y%m%d%H%M` - Error Disabling $ACCOUNT" | tee -a $MGTLOG
 }
 
 # doReadAccounts
