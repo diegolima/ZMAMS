@@ -20,6 +20,11 @@ Installation
     # echo "user1@mycompany.com" >  /etc/4linux/users.list
     # echo "user2@mycompany.com" >> /etc/4linux/users.list
 
+4 - (Optional) Add the script to the server's crontab, adjusting the time as desired.
+    This example will disable the accounts every day at 7pm and re-enable them at 7am:
+    # echo "0 19    * * *    root   /usr/local/sbin/zmbaccmgt disable" >> /etc/crontab
+    # echo "0 7     * * *    root   /usr/local/sbin/zmbaccmgt enable"  >> /etc/crontab
+
 
 Usage
 -----
