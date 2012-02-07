@@ -1,0 +1,17 @@
+Zimbra Mass Account Management System
+=====================================
+
+This script was written to allow easy management of multiple accounts based on
+user lists written as text files. It was written primarily with the intent of
+being run from the crontab in order to enable/disable user accounts on certain
+times in order to enforce company policies.
+
+
+Usage
+-----
+
+The script works by reading email addresses from .list files on its configuration
+directory (/etc/4linux by default). It then takes the requested action on the
+accounts. Its syntax is the following
+
+zmbaccmgt [enable|disable]
