@@ -6,6 +6,20 @@ user lists written as text files. It was written primarily with the intent of
 being run from the crontab in order to enable/disable user accounts on certain
 times in order to enforce company policies.
 
+Installation
+------------
+1 - Copy the zmbaccmgt script to /usr/local/sbin and make sure it is executable:
+    # cp zmbaccmgt /usr/local/sbin
+    # chmod 755 /usr/local/sbin/zmbaccmgt
+
+2 - Create a /etc/4linux directory
+    # mkdir /etc/4linux
+
+3 - Create lists containing the email addresses of the accounts that you wish
+    to block/unblock on /etc/4linux:
+    # echo "user1@mycompany.com" >  /etc/4linux/users.list
+    # echo "user2@mycompany.com" >> /etc/4linux/users.list
+
 
 Usage
 -----
