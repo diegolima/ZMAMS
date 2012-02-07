@@ -7,7 +7,7 @@
 # Author: Diego Lima <diego.lima@4linux.com.br>
 ###############################################################################
 ZMBUSR="zimbra"
-MGTPREFIX="./"
+MGTPREFIX="/etc/4linux"
 MGTLOG="$MGTPREFIX/activity.log"
 MGTUSERLIST="`ls $MGTPREFIX/*.list`"
 
